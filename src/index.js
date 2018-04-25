@@ -8,6 +8,8 @@ import registerServiceWorker from './registerServiceWorker';
 import {ConnectedRouter} from 'react-router-redux';
 import {history} from './store/configureStore';
 
+import '../node_modules/toastr/build/toastr.min.css';
+
 const store = configureStore();
 
 ReactDOM.render((

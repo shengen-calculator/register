@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 
 import './Header.css';
 
-const Header = () => {
+const Header = ({logOut}) => {
     return (
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -14,6 +14,7 @@ const Header = () => {
                 <li><NavLink to="/history">History</NavLink></li>
                 <li><NavLink to="/about">About</NavLink></li>
                 <li><NavLink to="/help">Help</NavLink></li>
+                <li><a href="#logout" onClick={logOut}>LogOut</a></li>
             </ul>
         </header>
 
