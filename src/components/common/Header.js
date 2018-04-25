@@ -1,10 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import LogOut from '../common/LogOut';
 import logo from '../../logo.svg';
 
 import './Header.css';
 
-const Header = ({logOut}) => {
+const Header = () => {
     return (
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -14,7 +15,7 @@ const Header = ({logOut}) => {
                 <li><NavLink to="/history">History</NavLink></li>
                 <li><NavLink to="/about">About</NavLink></li>
                 <li><NavLink to="/help">Help</NavLink></li>
-                <li><a href="#logout" onClick={logOut}>LogOut</a></li>
+                <li><LogOut/></li>
             </ul>
         </header>
 
