@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import logo from '../../logo.svg';
 
 import './Header.css';
@@ -10,10 +10,10 @@ const Header = () => {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to React</h1>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/history">History</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/help">Help</Link></li>
+                <li><NavLink exact to="/">Home</NavLink></li>
+                <li><NavLink to="/history">History</NavLink></li>
+                <li><NavLink to="/about">About</NavLink></li>
+                <li><NavLink to="/help">Help</NavLink></li>
             </ul>
         </header>
 
