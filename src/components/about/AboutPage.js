@@ -30,7 +30,7 @@ class AboutPage extends React.Component {
         auth.signInWithPopup(provider).then(function (result) {
             authServices.logIn(result);
             toastr.success(result.user.displayName, 'Вітаємо');
-            redirect('/home');
+            redirect('/');
         }).catch(function (error) {
             toastr.error(error.message, error.code);
         });
