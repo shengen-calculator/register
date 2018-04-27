@@ -41,6 +41,9 @@ class AboutPage extends React.Component {
         return (
             <div>
                 <h1>About Page</h1>
+                <p>
+                    Вас вітає найзручніший та найпростіший сервіс для підрахунку терміну перебування за безвізом в країнах шенгенської угоди!
+                </p>
                 {!isLoggedIn && <div>
                     <RegistrationLink login={this.fbLogIn} text='Facebook'/><br/>
                     <RegistrationLink login={this.googleLogIn} text='Google'/>

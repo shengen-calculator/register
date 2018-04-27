@@ -1,13 +1,13 @@
 import crossingApi from '../api/fireBaseTripApi';
 
 
-export function out(dateTime, lastTrip) {
+export function out(uid, dateTime, lastTrip) {
     return function (dispatch, getState) {
 
     };
 }
 
-export function back(dateTime, tripId) {
+export function back(uid, dateTime, tripId) {
     return function (dispatch, getState) {
 
     };
