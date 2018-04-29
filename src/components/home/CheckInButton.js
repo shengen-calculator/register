@@ -13,14 +13,16 @@ const CheckInButton = ({
                            maxDate,
                            checkInDate,
                            checkIn,
-                           closeDatePicker
-
+                           closeDatePicker,
+                           isOutside
                        }) => {
     return (
-        <div className="dropdown" >
+        <div className="dropdown">
             <button onClick={handleClick} className="dropbtn">
                 {
-                    "Дому"
+                    isOutside ?
+                        "Дому" :
+                        "за Бугор"
                 }
             </button>
             {isDropDownOpened && (<div className="dropdown-content">
@@ -43,7 +45,7 @@ const CheckInButton = ({
                         onClickOutside={closeDatePicker}
                         onSelect={closeDatePicker}
                         withPortal
-                        inline />
+                        inline/>
                 )
             }
         </div>

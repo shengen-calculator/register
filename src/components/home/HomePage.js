@@ -32,18 +32,31 @@ class HomePage extends React.Component {
     checkIn() {
 
         this.setState({isDropDownOpened: false});
+        if(this.props.isOutside) {
+            const lastTrip = this.props.trips.slice(-1)[0];
+            this.props.dataService.back(this.props.authentication.uid,
+                this.checkInDate.unix(), lastTrip.id).then(() => {
+                this.setState({isDropDownOpened: false});
+            }).catch(function (error) {
+                toastr.error(error.message, error.code);
+            });
 
-        this.props.dataService.addNewCrossing(this.props.authentication.uid,
-            this.checkInDate.unix()).then(() => {
-            this.setState({isDropDownOpened: false});
-        }).catch(function (error) {
-            toastr.error(error.message, error.code);
-        });
+        } else {
+
+            this.props.dataService.out(this.props.authentication.uid,
+                this.checkInDate.unix()).then(() => {
+                this.setState({isDropDownOpened: false});
+            }).catch(function (error) {
+                toastr.error(error.message, error.code);
+            });
+
+        }
+
     }
 
     calculateMinDate() {
         if (this.props.trips.length > 0) {
-            this.minDate = moment.unix(this.props.crossings[this.props.crossings.length - 1].date);
+            this.minDate = moment.unix(this.props.trips[this.props.trips.length - 1].out);
             let todayCrossingCount = 0;
             if (this.props.trips.length > 2) {
                 const day = this.minDate.dayOfYear();
@@ -142,6 +155,7 @@ class HomePage extends React.Component {
                         checkInDate={this.checkInDate}
                         checkIn={this.checkIn}
                         closeDatePicker={this.closeDatePicker}
+                        isOutside={this.props.isOutside}
                     />
                 </div>
             </div>
@@ -151,9 +165,17 @@ class HomePage extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
+    let isOutside = false;
+    if(state.trips.length > 0) {
+        const lastTrip = state.trips.slice(-1)[0];
+        if(!lastTrip.back) {
+            isOutside = true;
+        }
+    }
     return {
         authentication: state.authentication,
-        trips: state.trips
+        trips: state.trips,
+        isOutside: isOutside
     };
 }
 
