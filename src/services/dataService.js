@@ -1,14 +1,16 @@
 import tripApi from '../api/fireBaseTripApi';
 import {ajaxCallError, beginAjaxCall} from "../actions/ajaxStatusActions";
 import {
-    addTripSuccess, updateTripSuccess
+    addTripSuccess, updateTripSuccess, tripOutSuccess, tripBackSuccess
 } from "../actions/tripActions";
 
 
 export function out(uid, dateTime) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
-        return tripApi.out(uid, dateTime).catch(error => {
+        return tripApi.out(uid, dateTime).then(() => {
+            dispatch(tripOutSuccess())
+        }).catch(error => {
             dispatch(ajaxCallError(error));
             throw(error);
         });
@@ -18,7 +20,9 @@ export function out(uid, dateTime) {
 export function back(uid, dateTime, tripId) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
-        return tripApi.back(uid, dateTime, tripId).catch(error => {
+        return tripApi.back(uid, dateTime, tripId).then(() => {
+            dispatch(tripBackSuccess())
+        }).catch(error => {
             dispatch(ajaxCallError(error));
             throw(error);
         });

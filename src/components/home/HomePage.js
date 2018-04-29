@@ -56,18 +56,33 @@ class HomePage extends React.Component {
 
     calculateMinDate() {
         if (this.props.trips.length > 0) {
-            this.minDate = moment.unix(this.props.trips[this.props.trips.length - 1].out);
+            const lastTrip = this.props.trips.slice(-1)[0];
+
+            this.minDate = moment.unix(lastTrip.out);
+            if(lastTrip.back) {
+                this.minDate = moment.unix(lastTrip.back);
+            }
+
             let todayCrossingCount = 0;
-            if (this.props.trips.length > 2) {
+            if (this.props.trips.length > 1) {
                 const day = this.minDate.dayOfYear();
                 const year = this.minDate.year();
-                for (let i = this.props.trips.length - 3; i < this.props.trips.length; i++) {
-                    const currentDate = moment.unix(this.props.trips[i].date);
-                    if (currentDate.dayOfYear() === day && currentDate.year() === year) {
+
+                for (let i = this.props.trips.length - 2; i < this.props.trips.length; i++) {
+                    if(this.props.trips[i].back) {
+                        const backDate = moment.unix(this.props.trips[i].back);
+                        if (backDate.dayOfYear() === day && backDate.year() === year) {
+                            todayCrossingCount++;
+                        }
+                    }
+
+                    const outDate = moment.unix(this.props.trips[i].out);
+                    if (outDate.dayOfYear() === day && outDate.year() === year) {
                         todayCrossingCount++;
                     }
                 }
-                if (todayCrossingCount === 3) {
+
+                if (todayCrossingCount > 2) {
                     this.minDate.add(1, "days");
                 }
             }

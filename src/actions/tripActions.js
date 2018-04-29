@@ -6,3 +6,11 @@ export function addTripSuccess(trip) {
 export function updateTripSuccess(trip) {
     return { type: types.TRIP_UPDATE_SUCCESS, trip };
 }
+
+export function tripOutSuccess() {
+    return { type: types.TRIP_OUT_SUCCESS };
+}
+export function tripBackSuccess() {
+    return { type: types.TRIP_BACK_SUCCESS };
+}
+
