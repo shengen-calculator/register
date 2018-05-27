@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import LogOut from '../common/LogOut';
-import LoadingDots from './LoadingDots';
 import logo from '../../logo.svg';
 
 import './Header.css';
@@ -19,7 +18,6 @@ const Header = () => {
                 <li><NavLink to="/about">About</NavLink></li>
                 <li><NavLink to="/help">Help</NavLink></li>
                 <li><LogOut/></li>
-                <li className='dots'><LoadingDots interval={100} dots={20}/></li>
             </ul>
         </header>
 

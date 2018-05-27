@@ -15,8 +15,7 @@ class HomePage extends React.Component {
         super(props, context);
         this.state = {
             isDropDownOpened: false,
-            isDatePickerOpened: false,
-            saving: false
+            isDatePickerOpened: false
         };
         moment.locale("uk");
         this.isDatePickerJustClosed = false;
@@ -32,20 +31,29 @@ class HomePage extends React.Component {
         this.calculateMinDate = this.calculateMinDate.bind(this);
     }
 
+    componentWillUpdate(newProps,newState) {
+        if(newProps.saving) {
+            if(this.state.isDropDownOpened || this.state.isDatePickerOpened) {
+                this.setState({isDropDownOpened: false, isDatePickerOpened: false});
+            }
+        }
+
+    }
+
     checkIn() {
-        this.setState({isDropDownOpened: false, saving: true});
+        this.setState({isDropDownOpened: false});
         if(this.props.isOutside) {
             const lastTrip = this.props.trips.slice(-1)[0];
             this.props.dataService.back(this.props.authentication.uid,
                 this.checkInDate.unix(), lastTrip.id).then(() => {
-                this.setState({isDropDownOpened: false, saving: false});
+                this.setState({isDropDownOpened: false});
             }).catch(function (error) {
                 toastr.error(error.message, error.code);
             });
         } else {
             this.props.dataService.out(this.props.authentication.uid,
                 this.checkInDate.unix()).then(() => {
-                this.setState({isDropDownOpened: false, saving: false});
+                this.setState({isDropDownOpened: false});
             }).catch(function (error) {
                 toastr.error(error.message, error.code);
             });
@@ -89,7 +97,6 @@ class HomePage extends React.Component {
 
     handleChange(date) {
         this.checkInDate = date;
-        this.isDatePickerJustClosed = true;
         this.toggleCalendar();
     }
 
@@ -99,6 +106,7 @@ class HomePage extends React.Component {
     }
 
     closeDatePicker() {
+        this.isDatePickerJustClosed = true;
         this.setState({isDatePickerOpened: false});
     }
 
@@ -108,7 +116,7 @@ class HomePage extends React.Component {
             return;
         }
 
-        if (this.state.isDatePickerOpened || this.state.saving) {
+        if (this.state.isDatePickerOpened || this.props.saving) {
             return;
         }
 
@@ -148,13 +156,14 @@ class HomePage extends React.Component {
     }
 
     render() {
+
         return (
             <div>
                 <SpentDays trips={this.props.trips} />
                 <LastVisit trips={this.props.trips} />
                 <div className='CheckInBtn' ref={node => { this.node = node; }}>
                     <CheckInButton
-                        saving={this.state.saving}
+                        saving={this.props.saving}
                         handleClick={this.handleClick}
                         handleChange={this.handleChange}
                         toggleCalendar={this.toggleCalendar}
@@ -181,10 +190,12 @@ function mapStateToProps(state, ownProps) {
             isOutside = true;
         }
     }
+
     return {
         authentication: state.authentication,
         trips: state.trips,
-        isOutside: isOutside
+        isOutside: isOutside,
+        saving: state.ajaxCallsInProgress > 0
     };
 }
 
