@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 
 const CheckInButton = ({
+                           saving,
                            handleClick,
                            handleChange,
                            toggleCalendar,
@@ -16,13 +17,13 @@ const CheckInButton = ({
                            closeDatePicker,
                            isOutside
                        }) => {
+    const btnClass = saving ? 'dropbtn disabled' : 'dropbtn';
+    const btnText = isOutside ? 'Дому' : 'за Бугор';
     return (
         <div className="dropdown">
-            <button onClick={handleClick} className="dropbtn">
+            <button onClick={handleClick} className={btnClass} disabled={saving}>
                 {
-                    isOutside ?
-                        "Дому" :
-                        "за Бугор"
+                    saving ? "Зачекайте..." : btnText
                 }
             </button>
             {isDropDownOpened && (<div className="dropdown-content">

@@ -39,14 +39,13 @@ export function deleteLastTrip(tripId) {
 
 export function startListenDataChanges(uid, errorHandler) {
     return function (dispatch, getState) {
-        let loaded = false;
         tripApi.subscribeTripsAdded(uid, function (snapshot) {
             dispatch(beginAjaxCall());
-
+            const trip = snapshot.val();
             dispatch(addTripSuccess({
-                    item: snapshot.val(),
-                    key: snapshot.key,
-                    a: loaded
+                    id: snapshot.key,
+                    out: trip.out,
+                    back: trip.back
                 }
             ));
         }, function (error) {
@@ -58,10 +57,11 @@ export function startListenDataChanges(uid, errorHandler) {
             dispatch(beginAjaxCall());
             const trip = snapshot.val();
             dispatch(updateTripSuccess({
-                id: snapshot.key,
-                out: trip.out,
-                back: trip.back
-            }));
+                    id: snapshot.key,
+                    out: trip.out,
+                    back: trip.back
+                }
+            ));
         }, function (error) {
             dispatch(ajaxCallError(error));
             errorHandler(error);

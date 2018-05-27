@@ -8,13 +8,13 @@ export default function tripsReducer(state = initialState.trips, action) {
             if (action.trip) {
                 return [
                     ...state,
-                    Object.assign({}, action.trip.item.back ? {
-                        id: action.trip.key,
-                        out: action.trip.item.out,
-                        back: action.trip.item.back
+                    Object.assign({}, action.trip.back ? {
+                        id: action.trip.id,
+                        out: action.trip.out,
+                        back: action.trip.back
                     } : {
-                        id: action.trip.key,
-                        out: action.trip.item.out
+                        id: action.trip.id,
+                        out: action.trip.out
                     })
                 ];
 

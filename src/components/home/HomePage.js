@@ -3,6 +3,8 @@ import CheckInButton from './CheckInButton';
 import moment from 'moment';
 import 'moment/locale/uk';
 import toastr from 'toastr';
+import SpentDays from './SpentDays';
+import LastVisit from './LastVisit';
 import * as dataService from '../../services/dataService';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -13,7 +15,8 @@ class HomePage extends React.Component {
         super(props, context);
         this.state = {
             isDropDownOpened: false,
-            isDatePickerOpened: false
+            isDatePickerOpened: false,
+            saving: false
         };
         moment.locale("uk");
         this.isDatePickerJustClosed = false;
@@ -30,28 +33,23 @@ class HomePage extends React.Component {
     }
 
     checkIn() {
-
-        this.setState({isDropDownOpened: false});
+        this.setState({isDropDownOpened: false, saving: true});
         if(this.props.isOutside) {
             const lastTrip = this.props.trips.slice(-1)[0];
             this.props.dataService.back(this.props.authentication.uid,
                 this.checkInDate.unix(), lastTrip.id).then(() => {
-                this.setState({isDropDownOpened: false});
+                this.setState({isDropDownOpened: false, saving: false});
             }).catch(function (error) {
                 toastr.error(error.message, error.code);
             });
-
         } else {
-
             this.props.dataService.out(this.props.authentication.uid,
                 this.checkInDate.unix()).then(() => {
-                this.setState({isDropDownOpened: false});
+                this.setState({isDropDownOpened: false, saving: false});
             }).catch(function (error) {
                 toastr.error(error.message, error.code);
             });
-
         }
-
     }
 
     calculateMinDate() {
@@ -102,7 +100,6 @@ class HomePage extends React.Component {
 
     closeDatePicker() {
         this.setState({isDatePickerOpened: false});
-        this.isDatePickerJustClosed = true;
     }
 
     handleClick() {
@@ -111,7 +108,7 @@ class HomePage extends React.Component {
             return;
         }
 
-        if (this.state.isDatePickerOpened) {
+        if (this.state.isDatePickerOpened || this.state.saving) {
             return;
         }
 
@@ -140,7 +137,6 @@ class HomePage extends React.Component {
     }
 
     handleOutsideClick(event) {
-
         // ignore clicks on the component itself
         if (!this.node) {
             return;
@@ -151,15 +147,14 @@ class HomePage extends React.Component {
         this.handleClick();
     }
 
-
     render() {
         return (
             <div>
-                <h1>Home Page</h1>
-                <span className='SpentDays'>10</span>
-                <span className='LastVisit'>10</span>
+                <SpentDays trips={this.props.trips} />
+                <LastVisit trips={this.props.trips} />
                 <div className='CheckInBtn' ref={node => { this.node = node; }}>
                     <CheckInButton
+                        saving={this.state.saving}
                         handleClick={this.handleClick}
                         handleChange={this.handleChange}
                         toggleCalendar={this.toggleCalendar}
@@ -177,7 +172,6 @@ class HomePage extends React.Component {
         );
     };
 }
-
 
 function mapStateToProps(state, ownProps) {
     let isOutside = false;
