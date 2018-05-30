@@ -29,6 +29,7 @@ class HomePage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.closeDatePicker = this.closeDatePicker.bind(this);
         this.calculateMinDate = this.calculateMinDate.bind(this);
+        this.handleSelectOnDatePicker = this.handleSelectOnDatePicker.bind(this);
     }
 
     componentWillUpdate(newProps,newState) {
@@ -106,6 +107,11 @@ class HomePage extends React.Component {
     }
 
     closeDatePicker() {
+        this.setState({isDatePickerOpened: false});
+    }
+
+
+    handleSelectOnDatePicker() {
         this.isDatePickerJustClosed = true;
         this.setState({isDatePickerOpened: false});
     }
@@ -113,6 +119,7 @@ class HomePage extends React.Component {
     handleClick() {
         if (this.isDatePickerJustClosed) {
             this.isDatePickerJustClosed = false;
+
             return;
         }
 
@@ -149,9 +156,6 @@ class HomePage extends React.Component {
         if (!this.node) {
             return;
         }
-        if (this.node.contains(event.target)) {
-            return;
-        }
         this.handleClick();
     }
 
@@ -166,6 +170,7 @@ class HomePage extends React.Component {
                         saving={this.props.saving}
                         handleClick={this.handleClick}
                         handleChange={this.handleChange}
+                        handleSelectOnDatePicker={this.handleSelectOnDatePicker}
                         toggleCalendar={this.toggleCalendar}
                         isDropDownOpened={this.state.isDropDownOpened}
                         isDatePickerOpened={this.state.isDatePickerOpened}

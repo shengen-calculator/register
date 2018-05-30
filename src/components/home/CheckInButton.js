@@ -7,6 +7,7 @@ const CheckInButton = ({
                            saving,
                            handleClick,
                            handleChange,
+                           handleSelectOnDatePicker,
                            toggleCalendar,
                            isDropDownOpened,
                            isDatePickerOpened,
@@ -44,7 +45,7 @@ const CheckInButton = ({
                         minDate={minDate}
                         maxDate={maxDate}
                         onClickOutside={closeDatePicker}
-                        onSelect={closeDatePicker}
+                        onSelect={handleSelectOnDatePicker}
                         withPortal
                         inline/>
                 )
