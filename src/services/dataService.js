@@ -30,6 +30,20 @@ export function back(uid, dateTime, tripId) {
     };
 }
 
+export function getTrips(uid) {
+    return function (dispatch, getState) {
+        dispatch(beginAjaxCall());
+        return tripApi.loadTrips(uid).then(() => {
+
+
+
+        }).catch(error => {
+            dispatch(ajaxCallError(error));
+            throw(error);
+        });
+
+    };
+}
 
 export function deleteLastTrip(tripId) {
     return function (dispatch, getState) {

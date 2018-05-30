@@ -11,6 +11,10 @@ class TripApi {
         return database.ref('trips/' + uid + '/' + tripId).update({back: dateTime});
     }
 
+    static loadTrips(uid) {
+        return database.ref('trips/' + uid).once('value');
+    }
+
 
     static subscribeTripsAdded(uid, handler, errorHandler) {
         return database.ref('trips/' + uid).on('child_added', function (snapshot) {

@@ -32,6 +32,17 @@ export default function tripsReducer(state = initialState.trips, action) {
                 return state;
             }
 
+        case types.LOAD_TRIPS_SUCCESS:
+            return Object.keys(action.trips).map((el) => {
+                return {
+                    id: action.trips[el].id,
+                    title: action.trips[el].title,
+                    watchHref: action.trips[el].watchHref,
+                    authorId: action.trips[el].authorId,
+                    length: action.trips[el].length,
+                    category: action.trips[el].category
+                };
+            });
 
         default:
             return state;
