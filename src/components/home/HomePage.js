@@ -38,8 +38,9 @@ class HomePage extends React.Component {
                 this.setState({isDropDownOpened: false, isDatePickerOpened: false});
             }
         }
-
     }
+
+
 
     checkIn() {
         this.setState({isDropDownOpened: false});

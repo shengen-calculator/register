@@ -36,11 +36,8 @@ export default function tripsReducer(state = initialState.trips, action) {
             return Object.keys(action.trips).map((el) => {
                 return {
                     id: action.trips[el].id,
-                    title: action.trips[el].title,
-                    watchHref: action.trips[el].watchHref,
-                    authorId: action.trips[el].authorId,
-                    length: action.trips[el].length,
-                    category: action.trips[el].category
+                    out: action.trips[el].out,
+                    back: action.trips[el].back
                 };
             });
 
