@@ -156,6 +156,9 @@ class HomePage extends React.Component {
         if (!this.node) {
             return;
         }
+        if (this.node.contains(event.target)) {
+            return;
+        }
         this.handleClick();
     }
 
