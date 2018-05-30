@@ -4,8 +4,8 @@ import {beginAjaxCall} from "../actions/ajaxStatusActions";
 export function logIn(result) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
-        dispatch(authActions.loginSuccess(result.user));
-        return result.user;
+        dispatch(authActions.loginSuccess(result));
+        return result;
     };
 }
 

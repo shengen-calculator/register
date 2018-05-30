@@ -30,7 +30,7 @@ class AboutPage extends React.Component {
         const dataServices = this.props.dataServices;
         const redirect = this.props.redirect;
         auth.signInWithPopup(provider).then(function (result) {
-            authServices.logIn(result);
+            authServices.logIn(result.user);
             toastr.success(result.user.displayName, 'Вітаємо');
             dataServices.startListenDataChanges(result.user.uid, function (error) {
                 toastr.error(error.message, error.code);
