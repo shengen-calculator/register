@@ -10,11 +10,19 @@ class AboutPage extends React.Component {
         this.logOut = this.logOut.bind(this);
     }
 
-    logOut() {
-        this.props.authServices.logOut();
+    componentWillMount() {
+        if(!this.props.authentication.loggedIn) {
+            const user = JSON.parse(localStorage.getItem('USER'));
+            if(user) {
+                this.props.authServices.logIn(user);
+            }
+        }
     }
 
-
+    logOut() {
+        this.props.authServices.logOut();
+        localStorage.removeItem("USER");
+    }
 
     render() {
         const isLoggedIn = this.props.authentication.loggedIn;
