@@ -40,7 +40,18 @@ class HomePage extends React.Component {
         }
     }
 
+    componentWillMount() {
+        if(this.props.trips.length === 0) {
+            const uid = this.props.authentication.uid;
+            this.props.dataService.getTrips(uid).then(() => {
 
+                this.props.dataService.startListenDataChanges(uid,
+                    function (error) {
+                    toastr.error(error.message, error.code);
+                });
+            });
+        }
+    }
 
     checkIn() {
         this.setState({isDropDownOpened: false});

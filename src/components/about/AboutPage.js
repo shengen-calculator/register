@@ -2,7 +2,6 @@ import React from 'react';
 import RegistrationLink from './RegistrationLink';
 import {bindActionCreators} from 'redux';
 import * as authService from '../../services/authService';
-import * as dataService from '../../services/dataService';
 import {auth, fbProvider, googleProvider} from '../../api/database';
 import toastr from 'toastr';
 import {connect} from 'react-redux';
@@ -27,14 +26,10 @@ class AboutPage extends React.Component {
 
     login(provider) {
         const authServices = this.props.authServices;
-        const dataServices = this.props.dataServices;
         const redirect = this.props.redirect;
         auth.signInWithPopup(provider).then(function (result) {
             authServices.logIn(result.user);
             toastr.success(result.user.displayName, 'Вітаємо');
-            dataServices.startListenDataChanges(result.user.uid, function (error) {
-                toastr.error(error.message, error.code);
-            });
             redirect('/');
         }).catch(function (error) {
             toastr.error(error.message, error.code);
@@ -71,8 +66,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         redirect: (path) => dispatch(push(path)),
-        authServices: bindActionCreators(authService, dispatch),
-        dataServices: bindActionCreators(dataService, dispatch)
+        authServices: bindActionCreators(authService, dispatch)
     };
 }
 
