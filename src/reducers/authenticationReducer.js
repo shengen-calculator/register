@@ -18,8 +18,16 @@ export default function authenticationReducer(state = initialState.authenticatio
                 loggedIn: false,
                 name: '',
                 uid: '',
-                email: ''
+                email: '',
+                dataLoaded: false
             };
+
+        case types.LOAD_TRIPS_SUCCESS:
+            return {
+                ...state,
+                dataLoaded: true
+            };
+
 
 
         default:
