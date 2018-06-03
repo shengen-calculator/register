@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": false
+      }
+    },
+    "trips": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid"
+      }
+    }
+  }
+}

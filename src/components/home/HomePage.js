@@ -44,6 +44,7 @@ class HomePage extends React.Component {
     componentWillMount() {
         if(this.props.trips.length === 0) {
             const uid = this.props.authentication.uid;
+            const authService = this.props.authService;
             this.props.dataService.getTrips(uid).then(() => {
 
                 this.props.dataService.startListenDataChanges(uid,
@@ -52,8 +53,7 @@ class HomePage extends React.Component {
                 });
             }).catch(function (error) {
                 if(error.code === 'PERMISSION_DENIED') {
-                    this.props.authServices.logOut();
-                    localStorage.removeItem("USER");
+                    authService.logOut(uid);
                 }else {
                     toastr.error(error.message, error.code);
                 }

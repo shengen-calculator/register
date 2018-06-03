@@ -9,7 +9,7 @@ const LastVisit = ({trips}) => {
         if(lastTrip.back) {
             const today = moment();
             const days = today.diff(moment.unix(lastTrip.back), 'days');
-            if(days >= 0) {
+            if(today.diff(moment.unix(lastTrip.back), 'days', true) >= 0) {
                 text = days + 1;
             }
         }

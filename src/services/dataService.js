@@ -9,9 +9,12 @@ import moment from 'moment';
 function tripHandle(trip, id, backMoment) {
 
     let days = 0;
-
     let outMoment =moment.unix(trip.out);
-    let correction = outMoment.diff(backMoment, 'days') === 0 ? 1 : 0;
+    let correction = 0;
+
+    if(backMoment) {
+        correction = outMoment.diff(backMoment, 'days') === 0 ? 1 : 0;
+    }
 
     if(trip.back) {
         backMoment = moment.unix(trip.back);

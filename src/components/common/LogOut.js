@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux';
 import * as authService from '../../services/authService';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
+import toastr from 'toastr';
+
 
 class AboutPage extends React.Component {
     constructor(props, context) {
@@ -20,8 +22,11 @@ class AboutPage extends React.Component {
     }
 
     logOut() {
-        this.props.authServices.logOut();
-        localStorage.removeItem("USER");
+        this.props.authServices.logOut(this.props.authentication.uid).then(() => {
+            toastr.success('До зустрічі');
+        }).catch((error) => {
+            toastr.error(error.message, error.code);
+        });
     }
 
     render() {

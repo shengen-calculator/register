@@ -32,6 +32,10 @@ class TripApi {
         })
     }
 
+    static unSubscribeTripsChanges(uid) {
+        return database.ref('trips/' + uid).off();
+    }
+
 }
 
 export default TripApi;
