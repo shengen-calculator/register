@@ -6,6 +6,7 @@ import toastr from 'toastr';
 import SpentDays from './SpentDays';
 import LastVisit from './LastVisit';
 import * as dataService from '../../services/dataService';
+import * as authService from '../../services/authService';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -49,6 +50,13 @@ class HomePage extends React.Component {
                     function (error) {
                     toastr.error(error.message, error.code);
                 });
+            }).catch(function (error) {
+                if(error.code === 'PERMISSION_DENIED') {
+                    this.props.authServices.logOut();
+                    localStorage.removeItem("USER");
+                }else {
+                    toastr.error(error.message, error.code);
+                }
             });
         }
     }
@@ -221,7 +229,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        dataService: bindActionCreators(dataService, dispatch)
+        dataService: bindActionCreators(dataService, dispatch),
+        authService: bindActionCreators(authService, dispatch)
     };
 }
 
