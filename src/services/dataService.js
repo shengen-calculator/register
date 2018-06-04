@@ -4,24 +4,40 @@ import {
     addTripSuccess, updateTripSuccess, tripOutSuccess, tripBackSuccess, loadTripsSuccess
 } from "../actions/tripActions";
 import moment from 'moment';
+import lastDaysCount from './lastDaysCount';
 
 
 function tripHandle(trip, id, backMoment) {
 
     let days = 0;
-    let outMoment =moment.unix(trip.out);
+    let outMoment = moment.unix(trip.out);
     let correction = 0;
 
-    if(backMoment) {
+    if (backMoment) {
         correction = outMoment.diff(backMoment, 'days') === 0 ? 1 : 0;
     }
 
-    if(trip.back) {
+    const todayDiff = moment().diff(outMoment, 'days');
+
+    if (trip.back) {
         backMoment = moment.unix(trip.back);
+        const backDiff = moment().diff(backMoment, 'days');
+
         days = backMoment.diff(outMoment, 'days') + 1;
+
+        if(backDiff >= lastDaysCount) {
+            correction = days;
+        } else {
+            if(todayDiff >= lastDaysCount) {
+                correction = days - todayDiff + lastDaysCount - 1;
+            }
+        }
+
     } else {
-        const todayDiff = moment().diff(outMoment, 'days');
         days = todayDiff >= 0 ? todayDiff + 1 : 1;
+        if(days > lastDaysCount) {
+            correction = days - lastDaysCount;
+        }
     }
 
     return {
@@ -67,7 +83,7 @@ export function getTrips(uid) {
         return tripApi.loadTrips(uid).then((x) => {
             let backMoment;
             const trips = x.val();
-            if(trips) {
+            if (trips) {
                 const result = Object.keys(trips).map((el) => {
                     const prevMoment = backMoment;
                     backMoment = moment.unix(trips[el].back);
@@ -98,7 +114,7 @@ export function startListenDataChanges(uid, errorHandler) {
 
             let prevBackMoment;
 
-            if(getState().trips.length > 0) {
+            if (getState().trips.length > 0) {
                 prevBackMoment = moment.unix(getState().trips.slice(-1)[0].back);
             }
 
@@ -119,7 +135,7 @@ export function startListenDataChanges(uid, errorHandler) {
             const trip = snapshot.val();
             let prevBackMoment;
 
-            if(getState().trips.length > 1) {
+            if (getState().trips.length > 1) {
                 prevBackMoment = moment.unix(getState().trips.slice(-2)[0].back);
             }
 
