@@ -7,21 +7,22 @@ import moment from 'moment';
 import lastDaysCount from './lastDaysCount';
 
 
-function tripHandle(trip, id, backMoment) {
+function tripHandle(trip, id, backMoment, currentDay) {
 
     let days = 0;
     let outMoment = moment.unix(trip.out);
     let correction = 0;
+    let currentMoment = moment.unix(currentDay);
 
     if (backMoment) {
         correction = outMoment.diff(backMoment, 'days') === 0 ? 1 : 0;
     }
 
-    const todayDiff = moment().diff(outMoment, 'days');
+    const todayDiff = currentMoment.diff(outMoment, 'days');
 
     if (trip.back) {
         backMoment = moment.unix(trip.back);
-        const backDiff = moment().diff(backMoment, 'days');
+        const backDiff = currentMoment.diff(backMoment, 'days');
 
         days = backMoment.diff(outMoment, 'days') + 1;
 
@@ -49,7 +50,6 @@ function tripHandle(trip, id, backMoment) {
     };
 }
 
-
 export function out(uid, dateTime) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
@@ -75,7 +75,6 @@ export function back(uid, dateTime, tripId) {
     };
 }
 
-
 export function getTrips(uid) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
@@ -83,6 +82,7 @@ export function getTrips(uid) {
         return tripApi.loadTrips(uid).then((x) => {
             let backMoment;
             const trips = x.val();
+
             if (trips) {
                 const result = Object.keys(trips).map((el) => {
                     const prevMoment = backMoment;
@@ -108,6 +108,7 @@ export function deleteLastTrip(tripId) {
 
 export function startListenDataChanges(uid, errorHandler) {
     return function (dispatch, getState) {
+
         tripApi.subscribeTripsAdded(uid, function (snapshot) {
             dispatch(beginAjaxCall());
             const trip = snapshot.val();
