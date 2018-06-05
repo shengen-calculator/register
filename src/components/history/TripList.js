@@ -8,8 +8,8 @@ const TripList = ({trips}) => {
             <tr>
                 <th className="out">За бугор</th>
                 <th className="back">Дому</th>
-                <th className="account">Зараховано</th>
                 <th className="days">Всього</th>
+                <th className="account">Зараховано</th>
             </tr>
             </thead>
             <tbody>

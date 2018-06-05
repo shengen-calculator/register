@@ -1,7 +1,9 @@
 import tripApi from '../api/fireBaseTripApi';
 import {ajaxCallError, beginAjaxCall} from "../actions/ajaxStatusActions";
+import {updateCurrentDay} from "../actions/currentDayActions";
 import {
-    addTripSuccess, updateTripSuccess, tripOutSuccess, tripBackSuccess, loadTripsSuccess
+    addTripSuccess, updateTripSuccess, tripOutSuccess,
+    tripBackSuccess, loadTripsSuccess
 } from "../actions/tripActions";
 import moment from 'moment';
 import lastDaysCount from './lastDaysCount';
@@ -78,7 +80,7 @@ export function back(uid, dateTime, tripId) {
 export function getTrips(uid) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
-
+        const current = getState().currentDay;
         return tripApi.loadTrips(uid).then((x) => {
             let backMoment;
             const trips = x.val();
@@ -87,7 +89,7 @@ export function getTrips(uid) {
                 const result = Object.keys(trips).map((el) => {
                     const prevMoment = backMoment;
                     backMoment = moment.unix(trips[el].back);
-                    return tripHandle(trips[el], el, prevMoment);
+                    return tripHandle(trips[el], el, prevMoment, current);
                 });
                 dispatch(loadTripsSuccess(result));
             }
@@ -106,8 +108,15 @@ export function deleteLastTrip(tripId) {
     };
 }
 
+export function updateCurrent(currentDay) {
+    return function (dispatch, getState) {
+        dispatch(updateCurrentDay(currentDay));
+    };
+}
+
 export function startListenDataChanges(uid, errorHandler) {
     return function (dispatch, getState) {
+        const current = getState().currentDay;
 
         tripApi.subscribeTripsAdded(uid, function (snapshot) {
             dispatch(beginAjaxCall());
@@ -122,7 +131,7 @@ export function startListenDataChanges(uid, errorHandler) {
             const handledTrip = tripHandle(
                 {
                     out: trip.out
-                }, snapshot.key, prevBackMoment);
+                }, snapshot.key, prevBackMoment, current);
 
             dispatch(addTripSuccess(handledTrip));
 
@@ -144,7 +153,7 @@ export function startListenDataChanges(uid, errorHandler) {
                 {
                     out: trip.out,
                     back: trip.back
-                }, snapshot.key, prevBackMoment);
+                }, snapshot.key, prevBackMoment, current);
 
             dispatch(updateTripSuccess(handledTrip));
 

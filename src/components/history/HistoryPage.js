@@ -1,6 +1,7 @@
 import React from 'react';
 import 'moment/locale/uk';
 import toastr from 'toastr';
+import moment from 'moment';
 import * as dataService from '../../services/dataService';
 import * as authService from '../../services/authService';
 import {connect} from 'react-redux';
@@ -13,6 +14,9 @@ class HistoryPage extends React.Component {
 
     componentWillMount() {
         if(!this.props.authentication.dataLoaded) {
+
+            dataService.updateCurrent(moment().endOf('day').unix());
+
             const uid = this.props.authentication.uid;
             const authService = this.props.authService;
             this.props.dataService.getTrips(uid).then(() => {

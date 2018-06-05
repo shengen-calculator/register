@@ -43,6 +43,9 @@ class HomePage extends React.Component {
 
     componentWillMount() {
         if(!this.props.authentication.dataLoaded) {
+
+            this.props.dataService.updateCurrent(moment().endOf('day').unix());
+
             const uid = this.props.authentication.uid;
             const authService = this.props.authService;
             this.props.dataService.getTrips(uid).then(() => {
@@ -63,6 +66,11 @@ class HomePage extends React.Component {
 
     checkIn() {
         this.setState({isDropDownOpened: false});
+
+        if(this.props.currentDay < this.checkInDate.unix()) {
+            this.props.dataService.updateCurrent(this.checkInDate.unix());
+        }
+
         if(this.props.isOutside) {
             const lastTrip = this.props.trips.slice(-1)[0];
             this.props.dataService.back(this.props.authentication.uid,
@@ -221,6 +229,7 @@ function mapStateToProps(state, ownProps) {
 
     return {
         authentication: state.authentication,
+        currentDay: state.currentDay,
         trips: state.trips,
         isOutside: isOutside,
         saving: state.ajaxCallsInProgress > 0
