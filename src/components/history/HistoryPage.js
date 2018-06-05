@@ -6,6 +6,7 @@ import * as authService from '../../services/authService';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TripList from "./TripList";
+import './History.css';
 
 class HistoryPage extends React.Component {
 
@@ -32,10 +33,11 @@ class HistoryPage extends React.Component {
 
     render() {
         const {trips} = this.props;
+        const reversedTrips = trips.slice().reverse();
         return (
-            <div>
+            <div className="history-table">
                 <h1>History Page</h1>
-                <TripList trips={trips}/>
+                <TripList trips={reversedTrips}/>
             </div>
         );
     }

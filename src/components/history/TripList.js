@@ -6,10 +6,10 @@ const TripList = ({trips}) => {
         <table className="table">
             <thead>
             <tr>
-                <th>За бугор</th>
-                <th>Дому</th>
-                <th>Враховується</th>
-                <th>Всього</th>
+                <th className="out">За бугор</th>
+                <th className="back">Дому</th>
+                <th className="account">Зараховано</th>
+                <th className="days">Всього</th>
             </tr>
             </thead>
             <tbody>

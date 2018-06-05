@@ -1,0 +1,36 @@
+.history-table table.table{
+    width: 640px;
+    margin: 0px auto;
+    font-size: 20px;
+    font-weight: 100;
+    border-collapse: collapse;
+}
+
+.history-table table.table tr td {
+    padding: 9px;
+}
+
+
+th.out {
+    width: 180px;
+    text-align: center;
+}
+
+th.back {
+    width: 180px;
+    text-align: center;
+}
+
+th.days {
+    width: 140px;
+    text-align: center;
+}
+
+th.account {
+    width: 140px;
+    text-align: center;
+}
+
+.history-table table.table tbody tr:nth-child(odd) {
+    background: #f2f2f2;
+}
