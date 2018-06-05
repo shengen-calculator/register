@@ -9,7 +9,7 @@ const TripList = ({trips}) => {
                 <th className="out">За бугор</th>
                 <th className="back">Дому</th>
                 <th className="days">Всього</th>
-                <th className="account">Зараховано</th>
+                <th className="account">Враховується</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +20,5 @@ const TripList = ({trips}) => {
         </table>
     );
 };
-
 
 export default TripList;

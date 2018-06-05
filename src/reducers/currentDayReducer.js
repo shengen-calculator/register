@@ -6,7 +6,7 @@ export default function currentDayReducer(state = initialState.currentDay, actio
     switch (action.type) {
 
         case types.UPDATE_CURRENT_DAY:
-            return action.currentDay > 0 ? action.currentDay : state;
+            return action.data.currentDay > 0 ? action.data.currentDay : state;
 
         default:
             return state;

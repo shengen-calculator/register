@@ -1,5 +1,7 @@
 import initialState from './initialState';
 import * as types from '../actions/actionTypes';
+import {tripHandle} from "../services/dataService";
+import moment from 'moment';
 
 
 export default function tripsReducer(state = initialState.trips, action) {
@@ -59,6 +61,22 @@ export default function tripsReducer(state = initialState.trips, action) {
             } else {
                 return state;
             }
+
+        case types.UPDATE_CURRENT_DAY:
+
+            let backMoment;
+            const trips = action.data.trips;
+
+            if (trips) {
+                return trips.map((trip) => {
+                    const prevMoment = backMoment;
+                    backMoment = moment.unix(trip.back);
+                    return tripHandle(trip, trip.id, prevMoment, action.data.currentDay);
+                });
+            }
+
+            return state;
+
 
         default:
             return state;

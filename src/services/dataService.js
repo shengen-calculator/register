@@ -9,7 +9,7 @@ import moment from 'moment';
 import lastDaysCount from './lastDaysCount';
 
 
-function tripHandle(trip, id, backMoment, currentDay) {
+export function tripHandle(trip, id, backMoment, currentDay) {
 
     let days = 0;
     let outMoment = moment.unix(trip.out);
@@ -81,6 +81,7 @@ export function getTrips(uid) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
         const current = getState().currentDay;
+
         return tripApi.loadTrips(uid).then((x) => {
             let backMoment;
             const trips = x.val();
@@ -92,6 +93,7 @@ export function getTrips(uid) {
                     return tripHandle(trips[el], el, prevMoment, current);
                 });
                 dispatch(loadTripsSuccess(result));
+                return result;
             }
             dispatch(loadTripsSuccess());
 
@@ -110,22 +112,27 @@ export function deleteLastTrip(tripId) {
 
 export function updateCurrent(currentDay) {
     return function (dispatch, getState) {
-        dispatch(updateCurrentDay(currentDay));
+        dispatch(updateCurrentDay(currentDay, getState().trips));
     };
 }
 
 export function startListenDataChanges(uid, errorHandler) {
     return function (dispatch, getState) {
-        const current = getState().currentDay;
+        let current = getState().currentDay;
 
         tripApi.subscribeTripsAdded(uid, function (snapshot) {
             dispatch(beginAjaxCall());
+
             const trip = snapshot.val();
 
             let prevBackMoment;
 
             if (getState().trips.length > 0) {
                 prevBackMoment = moment.unix(getState().trips.slice(-1)[0].back);
+            }
+
+            if(current < trip.out) {
+                dispatch(updateCurrent(trip.out));
             }
 
             const handledTrip = tripHandle(
@@ -147,6 +154,10 @@ export function startListenDataChanges(uid, errorHandler) {
 
             if (getState().trips.length > 1) {
                 prevBackMoment = moment.unix(getState().trips.slice(-2)[0].back);
+            }
+
+            if(current < trip.back) {
+                dispatch(updateCurrent(trip.back));
             }
 
             const handledTrip = tripHandle(
