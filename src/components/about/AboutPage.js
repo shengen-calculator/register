@@ -51,7 +51,7 @@ class AboutPage extends React.Component {
                 <p>
                     В випадку будь-яких незручностей Ви можете контактувати з нами за адресою  </p>
                 <p>
-                    <a href="mailto:info@shengen.eu?subject=Users%20support">admin@shengen.eu</a>
+                    <a href="mailto:info@shengen.eu?subject=Users%20support">info@shengen.eu</a>
                 </p>
                 {!isLoggedIn && <div>
                     <RegistrationLink login={this.fbLogIn} text='Facebook'/><br/>
