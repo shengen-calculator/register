@@ -51,6 +51,7 @@ class HistoryPage extends React.Component {
             <div className="history-table">
                 <h1>Історія</h1>
                 <TripList trips={reversedTrips}/>
+                <p>&nbsp;</p>
             </div>
         );
     }

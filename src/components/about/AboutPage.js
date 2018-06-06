@@ -54,6 +54,7 @@ class AboutPage extends React.Component {
                     </p>
                     <RegistrationLink login={this.fbLogIn} text='Facebook'/>&nbsp;&nbsp;&nbsp;&nbsp;
                     <RegistrationLink login={this.googleLogIn} text='Google'/>
+                    <p>&nbsp;</p>
                 </div>}
             </div>
         )

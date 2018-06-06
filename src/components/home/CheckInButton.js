@@ -35,7 +35,7 @@ const CheckInButton = ({
                             checkInDate.format("DD-MM-YYYY")
                     }
                 </div>
-                <div onClick={checkIn}>Додати інфо</div>
+                <div onClick={checkIn}>Додати</div>
             </div>)}
             {
                 isDatePickerOpened && (

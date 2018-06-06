@@ -17,6 +17,7 @@ const HelpPage = () => {
             <p>
                 <a href="mailto:info@shengen.eu?subject=Users%20support">info@shengen.eu</a>
             </p>
+            <p>&nbsp;</p>
         </div>
     );
 };
