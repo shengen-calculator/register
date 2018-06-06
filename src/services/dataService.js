@@ -32,14 +32,14 @@ export function tripHandle(trip, id, backMoment, currentDay) {
             correction = days;
         } else {
             if(todayDiff >= lastDaysCount) {
-                correction = days - todayDiff + lastDaysCount - 1;
+                correction = todayDiff - lastDaysCount + 1;
             }
         }
 
     } else {
         days = todayDiff >= 0 ? todayDiff + 1 : 1;
         if(days > lastDaysCount) {
-            correction = days - lastDaysCount;
+            correction = todayDiff - lastDaysCount + 1;
         }
     }
 
