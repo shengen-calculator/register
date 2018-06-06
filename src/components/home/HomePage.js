@@ -202,7 +202,7 @@ class HomePage extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className='result-numbers'>
                 <SpentDays trips={this.props.trips} />
                 <LastVisit trips={this.props.trips} />
                 <div className='CheckInBtn' ref={node => { this.node = node; }}>

@@ -8,13 +8,13 @@ const Header = () => {
     return (
         <header className="App-header">
             <h1 className="App-title">
-                Welcome to Shengen Register
+                Shengen Calculator
             </h1>
             <ul>
-                <li><NavLink exact to="/">Home</NavLink></li>
-                <li><NavLink to="/history">History</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-                <li><NavLink to="/help">Help</NavLink></li>
+                <li className="home-link"><NavLink exact to="/">Головна</NavLink></li>
+                <li className="history-link"><NavLink to="/history">Історія</NavLink></li>
+                <li className="about-link"><NavLink to="/about">Про Нас</NavLink></li>
+                <li className="help-link"><NavLink to="/help">Довідка</NavLink></li>
                 <li><LogOut/></li>
             </ul>
         </header>

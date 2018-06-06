@@ -1,7 +1,7 @@
 .App-header {
     background-color: #222;
     height: 80px;
-    padding: 20px;
+    padding: 5px 5px 10px 5px;
     color: white;
 }
 
@@ -14,19 +14,33 @@ ul {
     padding: 0;
     overflow: hidden;
     margin: -20px auto 10px;
-    width: 320px;
+    width: 390px;
 }
 
 li {
     float: left;
+    width: 70px;
+    font-size: 17px;
+    font-weight: 100;
+}
+
+li.help-link {
     width: 80px;
+}
+
+li.home-link {
+    width: 75px;
+}
+
+li.about-link {
+    width: 90px;
 }
 
 li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 16px;
+    padding: 12px 8px;
     text-decoration: none;
 }
 

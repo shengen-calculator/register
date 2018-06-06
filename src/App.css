@@ -1,3 +1,25 @@
 .App {
   text-align: center;
 }
+p.text {
+    padding: 0 25px;
+    max-width: 600px;
+    margin: auto;
+    font-size: 24px;
+    font-weight: 100;
+}
+
+div.login-link a {
+    text-decoration: none;
+    color: #1d5d90;
+    font-size: 26px;
+}
+
+p.blue {
+    color: #2f96b4;
+    font-size: 20px;
+}
+
+div.result-numbers {
+    margin-top: 30px;
+}

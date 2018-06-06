@@ -19,12 +19,12 @@ const CheckInButton = ({
                            isOutside
                        }) => {
     const btnClass = saving ? 'dropbtn disabled' : 'dropbtn';
-    const btnText = isOutside ? 'Дому' : 'за Бугор';
+    const btnText = isOutside ? 'Повернення' : 'Виїзд';
     return (
         <div className="dropdown">
             <button onClick={handleClick} className={btnClass} disabled={saving}>
                 {
-                    saving ? "Зачекайте..." : btnText
+                    saving ? "Хвилинку..." : btnText
                 }
             </button>
             {isDropDownOpened && (<div className="dropdown-content">
@@ -35,7 +35,7 @@ const CheckInButton = ({
                             checkInDate.format("DD-MM-YYYY")
                     }
                 </div>
-                <div onClick={checkIn}>Check In</div>
+                <div onClick={checkIn}>Додати інфо</div>
             </div>)}
             {
                 isDatePickerOpened && (
