@@ -1,14 +1,12 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import LogOut from '../common/LogOut';
-import logo from '../../logo.svg';
 
 import './Header.css';
 
 const Header = () => {
     return (
         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">
                 Welcome to Shengen Register
             </h1>
