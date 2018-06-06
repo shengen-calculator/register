@@ -48,12 +48,10 @@ class AboutPage extends React.Component {
                     кожного дня! Сервіс також дозволяє планувати Ваші майбутні подорожі, вносячи відповідні дати
                     Ви будете бачити кількість використаних днів за безвізом на час повернення додому.
                 </p>
-                <p>
-                    В випадку будь-яких незручностей Ви можете контактувати з нами за адресою  </p>
-                <p>
-                    <a href="mailto:info@shengen.eu?subject=Users%20support">info@shengen.eu</a>
-                </p>
                 {!isLoggedIn && <div>
+                    <p>
+                        Увійти за допомогою
+                    </p>
                     <RegistrationLink login={this.fbLogIn} text='Facebook'/><br/>
                     <RegistrationLink login={this.googleLogIn} text='Google'/>
                 </div>}
