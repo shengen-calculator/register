@@ -49,7 +49,7 @@ class HistoryPage extends React.Component {
         const reversedTrips = trips.slice().reverse();
         return (
             <div className="history-table">
-                <h1>Історія</h1>
+                <h1>Історія подорожей</h1>
                 <TripList trips={reversedTrips}/>
                 <p>&nbsp;</p>
             </div>
