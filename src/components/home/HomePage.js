@@ -41,6 +41,11 @@ class HomePage extends React.Component {
         }
     }
 
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     componentWillMount() {
         if(!this.props.authentication.dataLoaded) {
             const uid = this.props.authentication.uid;
@@ -71,6 +76,14 @@ class HomePage extends React.Component {
                 }
             });
         }
+
+        this.interval = setInterval (() => {
+            const currentDay = moment().endOf('day').unix();
+
+            if(currentDay > this.props.currentDay) {
+                this.props.dataService.updateCurrent(currentDay);
+            }
+        }, 10000);
     }
 
     checkIn() {
