@@ -46,6 +46,15 @@ export default function tripsReducer(state = initialState.trips, action) {
                 return state;
             }
 
+        case types.DELETE_TRIP_SUCCESS:
+            if (action.tripId) {
+                return [
+                    ...state.filter(trip => trip.id !== action.tripId)
+                ];
+            } else {
+                return state;
+            }
+
         case types.LOAD_TRIPS_SUCCESS:
 
             if(action.trips) {

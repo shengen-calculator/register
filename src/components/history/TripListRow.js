@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const TripListRow = ({trip, deleteTrip}) => {
+const TripListRow = ({trip, deleteTrip, isFirst}) => {
     return (
         <tr className="double">
             <td colSpan="3">
@@ -9,13 +9,17 @@ const TripListRow = ({trip, deleteTrip}) => {
                     <tbody>
                         <tr>
                             <td className="out">{moment.unix(trip.out).format('ll')}</td>
-                            <td className="days" rowSpan="2">{trip.days}&nbsp;&nbsp;({trip.counted})</td>
+                            <td className="days" rowSpan="2">
+                                {trip.days}&nbsp;&nbsp;({trip.counted})
+                            </td>
                             <td className="action" rowSpan="2">
-                                <div id={trip.id} onClick={deleteTrip} className="delete"/>
+                                {isFirst && <div id={trip.id} onClick={deleteTrip} className="delete"/>}
                             </td>
                         </tr>
                         <tr>
-                            <td className="back">{trip.back > 0 ? moment.unix(trip.back).format('ll') : ''}</td>
+                            <td className="back">
+                                {trip.back > 0 ? moment.unix(trip.back).format('ll') : ''}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

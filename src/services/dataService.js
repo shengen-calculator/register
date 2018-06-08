@@ -3,7 +3,7 @@ import {ajaxCallError, beginAjaxCall} from "../actions/ajaxStatusActions";
 import {updateCurrentDay} from "../actions/currentDayActions";
 import {
     addTripSuccess, updateTripSuccess, tripOutSuccess,
-    tripBackSuccess, loadTripsSuccess
+    tripBackSuccess, loadTripsSuccess, deleteTripSuccess
 } from "../actions/tripActions";
 import moment from 'moment';
 import lastDaysCount from './lastDaysCount';
@@ -77,6 +77,19 @@ export function back(uid, dateTime, tripId) {
     };
 }
 
+export function deleteTrip(uid, tripId) {
+    return function (dispatch, getState) {
+        dispatch(beginAjaxCall());
+        return tripApi.deleteTrip(uid, tripId).then(() => {
+            dispatch(deleteTripSuccess(tripId));
+        }).catch(error => {
+            dispatch(ajaxCallError(error));
+            throw(error);
+        });
+
+    };
+}
+
 export function getTrips(uid) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
@@ -101,12 +114,6 @@ export function getTrips(uid) {
             dispatch(ajaxCallError(error));
             throw(error);
         });
-    };
-}
-
-export function deleteLastTrip(tripId) {
-    return function (dispatch, getState) {
-
     };
 }
 
@@ -168,6 +175,14 @@ export function startListenDataChanges(uid, errorHandler) {
 
             dispatch(updateTripSuccess(handledTrip));
 
+        }, function (error) {
+            dispatch(ajaxCallError(error));
+            errorHandler(error);
+        });
+
+        tripApi.subscribeTripDeleted(uid, function (snapshot) {
+            dispatch(beginAjaxCall());
+            dispatch(deleteTripSuccess(snapshot.key));
         }, function (error) {
             dispatch(ajaxCallError(error));
             errorHandler(error);

@@ -11,6 +11,10 @@ class TripApi {
         return database.ref('trips/' + uid + '/' + tripId).update({back: dateTime});
     }
 
+    static deleteTrip(uid, tripId) {
+        return database.ref('trips/' + uid + '/' + tripId).remove();
+    }
+
     static loadTrips(uid) {
         return database.ref('trips/' + uid).once('value');
     }
@@ -26,6 +30,14 @@ class TripApi {
 
     static subscribeTripsChanged(uid, handler, errorHandler) {
         return database.ref('trips/' + uid).on('child_changed', function (snapshot) {
+            handler(snapshot, uid);
+        }, function (error) {
+            errorHandler(error);
+        })
+    }
+
+    static subscribeTripDeleted(uid, handler, errorHandler) {
+        return database.ref('trips/' + uid).on('child_removed', function (snapshot) {
             handler(snapshot, uid);
         }, function (error) {
             errorHandler(error);

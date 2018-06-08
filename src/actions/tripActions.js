@@ -12,6 +12,10 @@ export function updateTripSuccess(trip) {
     return { type: types.TRIP_UPDATE_SUCCESS, trip };
 }
 
+export function deleteTripSuccess(tripId) {
+    return { type: types.DELETE_TRIP_SUCCESS, tripId };
+}
+
 export function tripOutSuccess() {
     return { type: types.TRIP_OUT_SUCCESS };
 }

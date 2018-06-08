@@ -21,7 +21,7 @@ class HistoryPage extends React.Component {
     }
 
     componentWillMount() {
-        if(!this.props.authentication.dataLoaded) {
+        if (!this.props.authentication.dataLoaded) {
             const uid = this.props.authentication.uid;
             const authService = this.props.authService;
             this.props.dataService.getTrips(uid).then((trips) => {
@@ -43,28 +43,33 @@ class HistoryPage extends React.Component {
                         toastr.error(error.message, error.code);
                     });
             }).catch(function (error) {
-                if(error.code === 'PERMISSION_DENIED') {
+                if (error.code === 'PERMISSION_DENIED') {
                     authService.logOut();
-                }else {
+                } else {
                     toastr.error(error.message, error.code);
                 }
             });
         }
 
 
-        this.interval = setInterval (() => {
+        this.interval = setInterval(() => {
             const currentDay = moment().endOf('day').unix();
 
-            if(currentDay > this.props.currentDay) {
+            if (currentDay > this.props.currentDay) {
                 this.props.dataService.updateCurrent(currentDay);
             }
         }, 10000);
     }
 
     deleteTrip(event) {
-        let isDelete = window.confirm("Видалити запис?");
-        if(isDelete) {
-            alert(event.target.id);
+        let isDelete = window.confirm("Видалити останню подорож?");
+        if (isDelete) {
+            this.props.dataService.deleteTrip(this.props.authentication.uid, event.target.id)
+                .catch((error) => {
+                    toastr.error(error.message, error.code);
+                    this.props.dataService.loadTrips(this.props.authentication.uid);
+                });
+
         }
     }
 
