@@ -10,6 +10,10 @@ import TripList from "./TripList";
 import './History.css';
 
 class HistoryPage extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.deleteTrip = this.deleteTrip.bind(this);
+    }
 
 
     componentWillUnmount() {
@@ -57,13 +61,22 @@ class HistoryPage extends React.Component {
         }, 10000);
     }
 
+    deleteTrip(event) {
+        let isDelete = window.confirm("Видалити запис?");
+        if(isDelete) {
+            alert(event.target.id);
+        }
+    }
+
     render() {
         const {trips} = this.props;
         const reversedTrips = trips.slice().reverse();
+        const saving = this.props.saving;
         return (
             <div className="history-table">
                 <h1>Історія подорожей</h1>
-                <TripList trips={reversedTrips}/>
+                {!saving && <TripList trips={reversedTrips} deleteTrip={this.deleteTrip}/>}
+                {saving && <span>Завантаження...</span>}
                 <p>&nbsp;</p>
             </div>
         );

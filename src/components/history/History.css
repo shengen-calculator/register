@@ -1,6 +1,6 @@
 .history-table table.table{
     width: 380px;
-    margin: 0px auto;
+    margin: 0 auto;
     font-size: 16px;
     font-weight: 100;
     border-collapse: collapse;
@@ -10,27 +10,40 @@
     padding: 9px 6px;
 }
 
+td.out {
+    width: 165px;
+    text-align: left;
+}
 
-th.out {
-    width: 135px;
+td.back {
+    width: 165px;
+    text-align: right;
+}
+
+td.days {
+    width: 100px;
     text-align: center;
 }
 
-th.back {
-    width: 135px;
-    text-align: center;
+td.action {
+    width: 80px;
 }
 
-th.days {
-    width: 50px;
-    text-align: center;
+td.action div {
+    margin: 0 auto;
 }
 
-th.account {
-    width: 60px;
-    text-align: center;
+td.action div:hover {
+    cursor: pointer;
 }
 
-.history-table table.table tbody tr:nth-child(odd) {
+div.delete {
+    background: url("../../img/remove.png") no-repeat center;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+}
+
+.history-table table.table tbody tr.double:nth-child(odd) {
     background: #f2f2f2;
 }
