@@ -19,21 +19,9 @@ ul {
 
 li {
     float: left;
-    width: 70px;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 100;
-}
-
-li.help-link {
-    width: 70px;
-}
-
-li.home-link {
     width: 75px;
-}
-
-li.about-link {
-    width: 90px;
 }
 
 li a {

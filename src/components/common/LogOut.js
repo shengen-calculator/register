@@ -33,7 +33,7 @@ class AboutPage extends React.Component {
         const isLoggedIn = this.props.authentication.loggedIn;
         return (
             <div>
-                {isLoggedIn && <a href='#logOut' onClick={this.logOut}>Вийти</a>}
+                {isLoggedIn && <a href='#logOut' onClick={this.logOut}><i className="far fa-user"/></a>}
             </div>
         )
     }

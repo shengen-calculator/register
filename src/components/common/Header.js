@@ -11,10 +11,10 @@ const Header = () => {
                 Shengen Calculator
             </h1>
             <ul>
-                <li className="home-link"><NavLink exact to="/">Головна</NavLink></li>
-                <li className="history-link"><NavLink to="/history">Історія</NavLink></li>
-                <li className="about-link"><NavLink to="/about">Про Нас</NavLink></li>
-                <li className="help-link"><NavLink to="/help">Довідка</NavLink></li>
+                <li className="home-link"><NavLink exact to="/"><i className="fas fa-home"/></NavLink></li>
+                <li className="history-link"><NavLink to="/history"><i className="fas fa-list"/></NavLink></li>
+                <li className="about-link"><NavLink to="/about"><i className="fas fa-info"/></NavLink></li>
+                <li className="help-link"><NavLink to="/help"><i className="fas fa-question"/></NavLink></li>
                 <li><LogOut/></li>
             </ul>
         </header>
