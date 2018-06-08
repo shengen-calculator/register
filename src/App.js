@@ -4,6 +4,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Header from './components/common/Header';
 import About from './components/about/AboutPage';
 import Help from './components/help/HelpPage';
+import LogIn from './components/logIn/LogInPage';
 import History from './components/history/HistoryPage';
 import Home from './components/home/HomePage';
 
@@ -19,6 +20,7 @@ class App extends React.Component {
                     <Route path='/about' activeClassName='selected' component={About}/>
                     <PrivateRoute path='/history' activeClassName='selected' component={History}/>
                     <Route path='/help' activeClassName='selected' component={Help}/>
+                    <Route path='/login' activeClassName='selected' component={LogIn}/>
                     <PrivateRoute path="/" activeClassName='selected' component={Home}/>
                 </Switch>
             </div>

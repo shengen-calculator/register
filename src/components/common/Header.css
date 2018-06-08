@@ -14,14 +14,14 @@ ul {
     padding: 0;
     overflow: hidden;
     margin: -20px auto 10px;
-    width: 380px;
+    width: 350px;
 }
 
 li {
     float: left;
     font-size: 19px;
     font-weight: 100;
-    width: 75px;
+    width: 70px;
 }
 
 li a {
