@@ -42,8 +42,8 @@ class LogInPage extends React.Component {
                 <h1>Продовжити з</h1>
 
                 <div className='login-link'>
-                    <RegistrationLink login={this.fbLogIn} text='Facebook'/>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RegistrationLink login={this.googleLogIn} text='Google'/>
+                    <RegistrationLink login={this.fbLogIn} text={<i className="fab fa-facebook"/>}/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <RegistrationLink login={this.googleLogIn} text={<i className="fab fa-google google-blue"/>}/>
                 </div>
                 <p>&nbsp;</p>
             </div>

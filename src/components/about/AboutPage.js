@@ -52,8 +52,8 @@ class AboutPage extends React.Component {
                     <p className='blue'>
                         Увійти за допомогою облікового запису
                     </p>
-                    <RegistrationLink login={this.fbLogIn} text='Facebook'/>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RegistrationLink login={this.googleLogIn} text='Google'/>
+                    <RegistrationLink login={this.fbLogIn} text={<i className="fab fa-facebook"/>}/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <RegistrationLink login={this.googleLogIn} text={<i className="fab fa-google google-blue"/>}/>
                 </div>}
                 <p>&nbsp;</p>
             </div>

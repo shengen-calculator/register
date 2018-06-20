@@ -12,7 +12,11 @@ p.text {
 div.login-link a {
     text-decoration: none;
     color: #1d5d90;
-    font-size: 26px;
+    font-size: 76px;
+}
+
+.google-blue {
+    color: #4285f4;
 }
 
 p.blue {
