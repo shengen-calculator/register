@@ -33,9 +33,9 @@ class HomePage extends React.Component {
         this.handleSelectOnDatePicker = this.handleSelectOnDatePicker.bind(this);
     }
 
-    componentWillUpdate(newProps,newState) {
-        if(newProps.saving) {
-            if(this.state.isDropDownOpened || this.state.isDatePickerOpened) {
+    componentWillUpdate(newProps, newState) {
+        if (newProps.saving) {
+            if (this.state.isDropDownOpened || this.state.isDatePickerOpened) {
                 this.setState({isDropDownOpened: false, isDatePickerOpened: false});
             }
         }
@@ -47,7 +47,7 @@ class HomePage extends React.Component {
     }
 
     componentWillMount() {
-        if(!this.props.authentication.dataLoaded) {
+        if (!this.props.authentication.dataLoaded) {
             const uid = this.props.authentication.uid;
             const authService = this.props.authService;
             this.props.dataService.getTrips(uid).then((trips) => {
@@ -66,21 +66,21 @@ class HomePage extends React.Component {
 
                 this.props.dataService.startListenDataChanges(uid,
                     function (error) {
-                    toastr.error(error.message, error.code);
-                });
+                        toastr.error(error.message, error.code);
+                    });
             }).catch(function (error) {
-                if(error.code === 'PERMISSION_DENIED') {
+                if (error.code === 'PERMISSION_DENIED') {
                     authService.logOut();
-                }else {
+                } else {
                     toastr.error(error.message, error.code);
                 }
             });
         }
 
-        this.interval = setInterval (() => {
+        this.interval = setInterval(() => {
             const currentDay = moment().endOf('day').unix();
 
-            if(currentDay > this.props.currentDay) {
+            if (currentDay > this.props.currentDay) {
                 this.props.dataService.updateCurrent(currentDay);
             }
         }, 10000);
@@ -89,11 +89,11 @@ class HomePage extends React.Component {
     checkIn() {
         this.setState({isDropDownOpened: false});
 
-        if(this.props.currentDay < this.checkInDate.unix()) {
+        if (this.props.currentDay < this.checkInDate.unix()) {
             this.props.dataService.updateCurrent(this.checkInDate.unix());
         }
 
-        if(this.props.isOutside) {
+        if (this.props.isOutside) {
             const lastTrip = this.props.trips.slice(-1)[0];
             this.props.dataService.back(this.props.authentication.uid,
                 this.checkInDate.unix(), lastTrip.id).then(() => {
@@ -116,7 +116,7 @@ class HomePage extends React.Component {
             const lastTrip = this.props.trips.slice(-1)[0];
 
             this.minDate = moment.unix(lastTrip.out);
-            if(lastTrip.back) {
+            if (lastTrip.back) {
                 this.minDate = moment.unix(lastTrip.back);
             }
 
@@ -126,7 +126,7 @@ class HomePage extends React.Component {
                 const year = this.minDate.year();
 
                 for (let i = this.props.trips.length - 2; i < this.props.trips.length; i++) {
-                    if(this.props.trips[i].back) {
+                    if (this.props.trips[i].back) {
                         const backDate = moment.unix(this.props.trips[i].back);
                         if (backDate.dayOfYear() === day && backDate.year() === year) {
                             todayCrossingCount++;
@@ -216,9 +216,11 @@ class HomePage extends React.Component {
 
         return (
             <div className='result-numbers'>
-                <SpentDays trips={this.props.trips} />
-                <LastVisit trips={this.props.trips} />
-                <div className='CheckInBtn' ref={node => { this.node = node; }}>
+                <SpentDays trips={this.props.trips}/>
+                <LastVisit trips={this.props.trips}/>
+                <div className='CheckInBtn' ref={node => {
+                    this.node = node;
+                }}>
                     <CheckInButton
                         saving={this.props.saving}
                         handleClick={this.handleClick}
@@ -242,9 +244,9 @@ class HomePage extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     let isOutside = false;
-    if(state.trips.length > 0) {
+    if (state.trips.length > 0) {
         const lastTrip = state.trips.slice(-1)[0];
-        if(!lastTrip.back) {
+        if (!lastTrip.back) {
             isOutside = true;
         }
     }
