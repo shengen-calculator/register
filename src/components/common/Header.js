@@ -24,15 +24,15 @@ class Header extends React.Component {
                     <li className="help-link"><NavLink to="/help" activeClassName='selected'>
                         <i className="fas fa-question"/></NavLink>
                     </li>
+                    {this.props.authentication.loggedIn&&
                     <li className="log-out"><LogOut/>
-                    </li>
+                    </li>}
                     {!this.props.authentication.loggedIn&&
                     <li className="help-link"><NavLink to="/logIn" activeClassName='selected'>
                         <i className="far fa-user"/></NavLink>
                     </li>}
                 </ul>
             </header>
-
         );
     }
 }
