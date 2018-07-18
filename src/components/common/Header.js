@@ -5,8 +5,21 @@ import LogOut from '../common/LogOut';
 import {withRouter} from 'react-router-dom';
 
 import './Header.css';
+import {bindActionCreators} from 'redux';
+import * as authService from '../../services/authService';
 
 class Header extends React.Component {
+
+    componentWillMount() {
+        if(!this.props.authentication.loggedIn) {
+            const user = JSON.parse(localStorage.getItem('USER'));
+            if(user) {
+                this.props.authServices.logIn(user);
+            }
+
+        }
+    }
+
     render() {
         return (
             <header className="App-header">
@@ -43,4 +56,11 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default withRouter(connect(mapStateToProps)(Header));
+
+function mapDispatchToProps(dispatch) {
+    return {
+        authServices: bindActionCreators(authService, dispatch)
+    };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

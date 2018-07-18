@@ -18,7 +18,7 @@ export function logIn(result) {
 
 export function logOut(uid) {
     return function (dispatch, getState) {
-        if(uid) {
+        if (uid) {
             tripApi.unSubscribeTripsChanges(uid);
         }
         return auth.signOut().then(() => {

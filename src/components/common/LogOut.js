@@ -12,15 +12,6 @@ class AboutPage extends React.Component {
         this.logOut = this.logOut.bind(this);
     }
 
-    componentWillMount() {
-        if(!this.props.authentication.loggedIn) {
-            const user = JSON.parse(localStorage.getItem('USER'));
-            if(user) {
-                this.props.authServices.logIn(user);
-            }
-        }
-    }
-
     logOut() {
         this.props.authServices.logOut(this.props.authentication.uid).then(() => {
             toastr.success('До зустрічі');
