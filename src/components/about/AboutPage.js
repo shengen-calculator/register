@@ -85,7 +85,7 @@ class AboutPage extends React.Component {
 
                 {isLoggedIn && <div className='login-link'>
                     <p className='blue'>
-                        Об'єднати поточний обліковий запис з
+                        Об'єднати поточний обліковий запис з іншим
                     </p>
                     <RegistrationLink login={this.linkGoogleAccountToFb} text={<i
                         className="fab fa-facebook"/>}/>&nbsp;&nbsp;&nbsp;&nbsp;
