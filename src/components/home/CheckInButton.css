@@ -56,9 +56,12 @@
 }
 .eu {
     background: url("../../img/btn.png") no-repeat center;
-    height: 65px;
+    height: 80px;
 }
 
 .dropdown:hover .dropbtn.eu {
     background-color: white;
+}
+.fa-3x {
+    font-size: 36px;
 }

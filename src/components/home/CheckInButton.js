@@ -29,7 +29,13 @@ const CheckInButton = ({
         <div className="dropdown">
             <button onClick={handleClick} className={btnClass} disabled={saving}>
                 {
-                    saving ? "moment..." : btnText
+                    saving
+                        ?
+                        <div className="fa-3x">
+                            <i className='fas fa-cog fa-spin'/>
+                        </div>
+                        :
+                        btnText
                 }
             </button>
             {isDropDownOpened && (<div className="dropdown-content">
