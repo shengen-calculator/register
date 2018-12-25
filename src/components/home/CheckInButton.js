@@ -18,13 +18,18 @@ const CheckInButton = ({
                            closeDatePicker,
                            isOutside
                        }) => {
-    const btnClass = saving ? 'dropbtn disabled' : 'dropbtn';
-    const btnText = isOutside ? 'Повернення' : 'Виїзд';
+
+
+    let btnClass = saving ? 'dropbtn disabled' : 'dropbtn';
+    if(!isOutside) {
+        btnClass = saving ? 'dropbtn disabled' : 'dropbtn eu';
+    }
+    const btnText = isOutside ? <i className='fas fa-shoe-prints'/> : '';
     return (
         <div className="dropdown">
             <button onClick={handleClick} className={btnClass} disabled={saving}>
                 {
-                    saving ? "Хвилинку..." : btnText
+                    saving ? "moment..." : btnText
                 }
             </button>
             {isDropDownOpened && (<div className="dropdown-content">

@@ -2,7 +2,7 @@
     background-color: #34495e;
     color: white;
     padding: 16px;
-    font-size: 28px;
+    font-size: 38px;
     border: none;
     cursor: pointer;
     min-width: 220px;
@@ -53,4 +53,12 @@
     height: 65px;
     width: 220px;
     margin: 30px auto;
+}
+.eu {
+    background: url("../../img/btn.png") no-repeat center;
+    height: 65px;
+}
+
+.dropdown:hover .dropbtn.eu {
+    background-color: white;
 }
