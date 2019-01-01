@@ -81,7 +81,12 @@ class HistoryPage extends React.Component {
             <div className="history-table">
                 <h1>Історія подорожей</h1>
                 {!saving && <TripList trips={reversedTrips} deleteTrip={this.deleteTrip}/>}
-                {saving && <span>Завантаження...</span>}
+                {saving &&
+                <span>
+                    <div className="fa-3x">
+                        <i className='fas fa-cog fa-spin'/>
+                    </div>
+                </span>}
                 <p>&nbsp;</p>
             </div>
         );
