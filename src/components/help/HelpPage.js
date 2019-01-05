@@ -33,7 +33,11 @@ const HelpPage = () => {
             <p className="text">
                 Якщо Ви тільки почали користуватись сервісом, не забудьте перед початком роботи внести
                 інформацію про всі Ваші минулі подорожі за останні 180 днів. Тобто починаючи з &nbsp;
-                <b>{formatDate(startDate)}</b>
+                <b>{formatDate(startDate)}</b> Також можете переглянути коротке&nbsp;
+                <a href="https://www.youtube.com/watch?v=C8Ijl94kO7g&feature=youtu.be"
+                   rel="noopener noreferrer" target="_blank">відео</a>,
+                з демонстрацієї роботи в системі.
+
             </p>
             <br/>
             <p className="text">
