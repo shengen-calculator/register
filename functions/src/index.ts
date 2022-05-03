@@ -1,5 +1,6 @@
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const { warn } = require("firebase-functions/lib/logger");
 
 admin.initializeApp();
 
@@ -16,14 +17,13 @@ export const onNewUserCreate = functions.auth.user().onCreate((user) => {
         providerId: user.providerData[0].uid
     })
         .catch(error => {
-            console.log(error);
+            warn(JSON.stringify(error));
         });
 
 });
 
 export const getUserById = functions.https.onRequest((request, response) => {
     return admin.auth().getUser(request.query.uid).then((userRecord) => {
-        console.log(userRecord);
         response.send(userRecord);
     })
 });
